@@ -2,7 +2,11 @@ import 'dart:convert' show jsonDecode;
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show get, Response;
-import 'package:star_wars_the_clone_wars/models/card.dart';
+import 'package:star_wars_the_clone_wars/cards/filmscard.dart';
+import 'package:star_wars_the_clone_wars/cards/peoplcard.dart';
+import 'package:star_wars_the_clone_wars/cards/speciescard.dart';
+import 'package:star_wars_the_clone_wars/cards/starshipcard.dart';
+import 'package:star_wars_the_clone_wars/cards/vehiclecard.dart';
 
 void main() {
   runApp(App());
@@ -18,16 +22,15 @@ class _AppState extends State<App> {
   Map rawJson;
   String id;
 
-  Future<void> fetchInfo(category, number) async {
+  Future<Map> fetchInfo(category, number) async {
     try {
       final Response response = await get(
           'https://swapi.co/api/$category/$number',
           headers: {"Content-Type": "application/json"});
       rawJson = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        print(rawJson);
-      } else {
-        print('show error to user');
+//        print(rawJson);
+        return (rawJson);
       }
     } catch (error) {
       // show error to user
@@ -35,24 +38,73 @@ class _AppState extends State<App> {
     }
   }
 
+  Widget buildCard() {
+    switch (category) {
+      case "films":
+//                        setState(()  {
+//                          rawJson = await fetchInfo(category, id);
+//                        });
+        return FilmsCard(filmsCard: Text("$rawJson"),
+
+        );
+        break;
+      case "people":
+//                        setState(()  {
+//                          rawJson = await fetchInfo(category, id);
+//                        });
+        return PeopleCard(
+          people: Text("$rawJson"),
+        );
+        break;
+      case "species":
+//                        setState(() {
+//                          rawJson= await fetchInfo(category, id);
+//                        });
+        return SpeciesCard(
+          speciesCard: Text("$rawJson"),
+        );
+        break;
+      case "starships":
+//                        setState(() {
+//                          rawJson= await fetchInfo(category, id);
+//                        });
+        return StarShipCard(
+          starShipCard: Text("$rawJson"),
+        );
+        break;
+      case "vehicles":
+//                        setState(() {
+//                          rawJson= await fetchInfo(category, id);
+//                        });
+        return VehicleCard(
+          vehicleCard: Text("$rawJson"),
+        );
+        break;
+//      case "planets":
+      default:
+        return Container();
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Star Wars The Clone Wars',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Star Wars Clone Wars'),
-          elevation: .3,
-          leading: Icon(Icons.create),
-        ),
-        body: ListView(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(left: 16.0),
+    debugShowCheckedModeBanner: false,
+    title: 'Star Wars The Clone Wars',
+    home: Scaffold(
+    appBar: AppBar(
+    title: Text('Star Wars Clone Wars'),
+    elevation: .3,
+    leading: Icon(Icons.create),
+    ),
+    body: ListView(
+    children: <Widget>[
+    Row(
+    children: <Widget>[
+    Expanded(
+    child: Container(
+    padding: EdgeInsets.only(left: 16.0),
                     child: TextField(
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -102,27 +154,19 @@ class _AppState extends State<App> {
               ],
             ),
             Column(
+
               children: <Widget>[
                 FlatButton.icon(
-
-                  onPressed: () {if(category!=null && id != null){
-                    fetchInfo(category, id);}
-                    else{
-                      print("Error");
-                  }
-
+                  onPressed: () async {
+                    rawJson = await fetchInfo(category, id);
                   },
                   icon: Icon(Icons.call_to_action),
                   label: Text('Start War'),
                 ),
-                AppCard(
 
-                  child: Text(
-                    "this $rawJson",
-                  ),
-                )
               ],
             ),
+            buildCard(),
           ],
         ),
       ),

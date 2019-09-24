@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 class FilmsCard extends StatefulWidget {
-  final FilmsCard filmsCard;
+  final Widget filmsCard;
   FilmsCard({Key key,@required this.filmsCard}):super();
   @override
 

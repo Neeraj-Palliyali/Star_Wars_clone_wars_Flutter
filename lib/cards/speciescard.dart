@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 class SpeciesCard extends StatefulWidget {
-  final SpeciesCard speciesCard;
+  final Widget speciesCard;
   SpeciesCard({Key key,@required this.speciesCard}):super();
   @override
   _SpeciesCardState createState() => _SpeciesCardState();

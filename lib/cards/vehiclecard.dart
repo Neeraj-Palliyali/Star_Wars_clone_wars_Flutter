@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 class VehicleCard extends StatefulWidget {
-final VehicleCard vehicleCard;
+final Widget vehicleCard;
 VehicleCard({Key key,@required this.vehicleCard}):super();
   @override
   _VehicleCardState createState() => _VehicleCardState();

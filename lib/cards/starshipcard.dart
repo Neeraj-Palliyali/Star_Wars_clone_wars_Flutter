@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 class StarShipCard extends StatefulWidget {
-  final StarShipCard starShipCard;
+  final Widget starShipCard;
   StarShipCard({Key key,@required this.starShipCard}):super();
   @override
   _StarShipCardState createState() => _StarShipCardState();

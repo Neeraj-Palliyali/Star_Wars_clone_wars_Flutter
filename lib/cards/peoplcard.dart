@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 class PeopleCard extends StatefulWidget {
-  final PeopleCard people;
+  final Widget people;
   PeopleCard({@required this.people}):super();
   @override
   _PeopleCardState createState() => _PeopleCardState();
